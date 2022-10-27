@@ -32,7 +32,7 @@ public class PrintedProduct {
     @NotNull
     Date date;
 
-    enum Type {
+    public enum Type {
         BOOK {
             @Override
             public String getName() {

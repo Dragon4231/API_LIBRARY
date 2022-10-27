@@ -3,15 +3,12 @@ package com.example.library.controllers;
 import com.example.library.data.PrintedProduct;
 import com.example.library.services.PrintedProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.net.http.HttpRequest;
-import java.sql.Date;
-import java.util.Calendar;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/")
@@ -32,21 +29,32 @@ public class MainController {
     }
 
     @GetMapping("/getPrintedProduct")
-    private PrintedProduct getPrintedProduct(){
+    private PrintedProduct getPrintedProduct() {
         return null;
     }
 
     @DeleteMapping("/deletePrintedProduct/{productId}")
     @ResponseStatus
-    private ResponseEntity deletePrintedProduct(@PathVariable long productId){
+    private ResponseEntity deletePrintedProduct(@PathVariable long productId) {
         printedProductService.deletePrintedProduct(productId);
-        return new ResponseEntity(new String("id "+productId+" deleted"), HttpStatus.OK);
+        return new ResponseEntity(new String("id " + productId + " deleted"), HttpStatus.OK);
     }
 
-    @PutMapping("/putPrintedProduct")
+    @PutMapping("/putPrintedProduct/{productId}")
     @ResponseStatus
-    private ResponseEntity putPrintedProduct(@RequestBody PrintedProduct printedProduct){
-        return null;
+    private ResponseEntity putPrintedProduct(
+            @PathVariable long productId,
+            @RequestParam(value = "theme", required = false) String theme,
+            @RequestParam(value = "author", required = false) String author,
+            @RequestParam(value = "publication", required = false) String publication,
+            @RequestParam(value = "typeOfProduct", required = false) PrintedProduct.Type typeOfProduct,
+            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        if (theme != null) printedProductService.updatePrintedProductTheme(productId, theme);
+        if (author != null) printedProductService.updatePrintedProductAuthor(productId, author);
+        if (publication != null) printedProductService.updatePrintedProductPublication(productId, publication);
+        if (typeOfProduct != null) printedProductService.updatePrintedProductTypeOfProduct(productId, typeOfProduct);
+        if (date != null) printedProductService.updatePrintedProductDate(productId, date);
+        return new ResponseEntity(new String("updating for " + productId + " done"), HttpStatus.OK);
     }
 
 
