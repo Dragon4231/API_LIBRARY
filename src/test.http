@@ -1,0 +1,10 @@
+POST http://localhost:8080/postPrintedProduct
+Content-Type: application/json
+
+{
+  "theme": 999,
+  "publication": "Winter Memories",
+  "typeOfProduct": "BOOK",
+  "author": "B",
+  "date": "2020-01-21"
+}
