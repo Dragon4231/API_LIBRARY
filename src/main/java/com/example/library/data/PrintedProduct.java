@@ -1,29 +1,35 @@
 package com.example.library.data;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Calendar;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@Entity
 public class PrintedProduct {
-
-    @NonNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long ID;
 
-    @NonNull
+    @NotNull
     private String theme;
-    @NonNull
+    @NotNull
     private String author;
-    @NonNull
+    @NotNull
     private String publication;
-    @NonNull
+    @NotNull
     private Type typeOfProduct;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NonNull
+    @NotNull
     Date date;
 
     enum Type {

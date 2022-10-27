@@ -1,6 +1,8 @@
 package com.example.library.controllers;
 
 import com.example.library.data.PrintedProduct;
+import com.example.library.services.PrintedProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -15,10 +17,17 @@ import java.util.Calendar;
 @RequestMapping("/")
 public class MainController {
 
+    @Autowired
+    PrintedProductService printedProductService;
+
+    public MainController(PrintedProductService printedProductService) {
+        this.printedProductService = printedProductService;
+    }
+
     @PostMapping("/postPrintedProduct")
     @ResponseStatus
     private ResponseEntity postPrintedProduct(@RequestBody PrintedProduct printedProduct) {
-        System.out.println(printedProduct);
+        printedProductService.savePrintedProduct(printedProduct);
         return new ResponseEntity("new PrintedProduct added", HttpStatus.OK);
     }
 
@@ -30,7 +39,8 @@ public class MainController {
     @DeleteMapping("/deletePrintedProduct/{productId}")
     @ResponseStatus
     private ResponseEntity deletePrintedProduct(@PathVariable long productId){
-        return null;
+        printedProductService.deletePrintedProduct(productId);
+        return new ResponseEntity(new String("id "+productId+" deleted"), HttpStatus.OK);
     }
 
     @PutMapping("/putPrintedProduct")

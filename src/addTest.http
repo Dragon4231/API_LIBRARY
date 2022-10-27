@@ -4,7 +4,7 @@ Content-Type: application/json
 {
   "theme": 999,
   "publication": "Winter Memories",
-  "typeOfProduct": "BOOK",
+  "typeOfProduct": "JOURNAL",
   "author": "B",
   "date": "2020-01-21"
 }
