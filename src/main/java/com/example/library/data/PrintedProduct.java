@@ -5,11 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.Calendar;
 
 @Data
 @NoArgsConstructor
@@ -30,7 +27,7 @@ public class PrintedProduct {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
-    Date date;
+    Calendar date;
 
     public enum Type {
         BOOK {

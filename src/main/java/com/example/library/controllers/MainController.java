@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/")
@@ -28,9 +31,14 @@ public class MainController {
         return new ResponseEntity("new PrintedProduct added", HttpStatus.OK);
     }
 
-    @GetMapping("/getPrintedProduct")
-    private PrintedProduct getPrintedProduct() {
-        return null;
+    @GetMapping("/getPrintedProduct/{getBy}")
+    private List<PrintedProduct> getPrintedProduct(@PathVariable String getBy, @RequestParam(value = "value") Object object) throws ParseException {
+        List list = printedProductService.getByValuePrintedProducts(getBy, object);
+        if (list.isEmpty()) {
+            throw new NoSuchElementException();
+        } else {
+            return list;
+        }
     }
 
     @DeleteMapping("/deletePrintedProduct/{productId}")

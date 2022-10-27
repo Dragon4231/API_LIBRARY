@@ -18,6 +18,11 @@ public class PrintedProductException {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity handleNoSuchElementException() {
-        return new ResponseEntity("no elements with this id were found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity("no elements with this value were found", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity handleIllegalArgumentException() {
+        return new ResponseEntity("no elements of this Type (VALID : BOOK, NEWSPAPER, JOURNAL)", HttpStatus.NOT_FOUND);
     }
 }

@@ -2,9 +2,10 @@ POST http://localhost:8080/postPrintedProduct
 Content-Type: application/json
 
 {
-  "theme": 999,
-  "publication": "Winter Memories",
-  "typeOfProduct": "JOURNAL",
-  "author": "B",
-  "date": "2020-01-21"
+  "theme": "Theme",
+  "publication": "Publication3",
+  "typeOfProduct": "BOOK",
+  "author": "Author3",
+  "date": "2030-03-21"
 }
+
